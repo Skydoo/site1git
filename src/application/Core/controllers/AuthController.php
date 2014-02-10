@@ -33,6 +33,7 @@ class AuthController extends Zend_Controller_Action
                 
                 if ($authResult->getCode() == 1) {
                     $userRow = $adapter->getResultRowObject();
+					$user = new Ro
                     $auth->getStorage()->write($userRow);
                 }
             }
