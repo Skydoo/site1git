@@ -27,10 +27,22 @@
           <a class="navbar-brand" href="#">Project name</a>
         </div>
         <div class="navbar-collapse collapse">
-          <?= $this->navigation()
+       <?php
+        $auth = Zend_Auth::getInstance();
+        if($auth->hasIdentity()){
+        	$userAuth = $auth->getIdentity();
+        }
+        else{
+        	$userAuth = new Core_Model_User();
+        	$userAuth->setRoleId(Core_Model_User::GUEST);
+        }
+        	echo 
+           $this->navigation()
+                   ->setAcl(Zend_Registry::get('Zend_Acl'))
+                   ->setRole($userAuth)
                    ->menu()
-                   ->setUlClass('nav navbar-nav')
-      ?>
+           		   ->setUlClass('nav navbar-nav');
+      	?>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
